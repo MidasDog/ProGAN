@@ -81,6 +81,7 @@ class Generator(nn.Module):
             PixelNorm()
         )
 
+        # also known as toRGB in the paper
         self.initial_rgb = WSConv2d(in_channels=in_channels,
                                     out_channels=img_channels,
                                     kernel_size=1,
@@ -99,6 +100,7 @@ class Generator(nn.Module):
             self.prog_blocks.append(
                 ConvBlock(conv_in_channels, conv_out_channels)
             )
+            # also known as toRGB in the paper
             self.rgb_layers.append(
                 WSConv2d(
                     in_channels=conv_out_channels,
@@ -143,6 +145,7 @@ class Critic(nn.Module):
             self.prog_blocks.append(
                 ConvBlock(conv_in_channels, conv_out_channels)
             )
+            # also known as fromRGB in the paper
             self.rgb_layers.append(
                 WSConv2d(
                     in_channels=img_channels,
@@ -153,6 +156,7 @@ class Critic(nn.Module):
                 )
             )
 
+        # also known as fromRGB in the paper
         self.initial_rgb = WSConv2d(
             in_channels=img_channels,
             out_channels=in_channels,
@@ -252,5 +256,6 @@ class Critic(nn.Module):
 
 #         out = critic(z, 0.5, num_steps)
 #         assert out.shape == (1, 1)
+
 
 #         print(f"Success at img_size: {img_size}")
