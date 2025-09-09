@@ -11,6 +11,8 @@ from torchvision import transforms, datasets
 
 from math import log2
 
+import config
+
 factors = [1, 1, 1, 1, 1/2, 1/4, 1/8, 1/16, 1/32]
 
 # Equalized LR
@@ -61,7 +63,7 @@ class ConvBlock(nn.Module):
         return x
 
 class Generator(nn.Module):
-    def __init__(self, z_dim, in_channels, img_channels=3):
+    def __init__(self, z_dim, in_channels, img_channels=config.CHANNELS_IMG):
         super().__init__()
 
         self.initial = nn.Sequential(
@@ -132,7 +134,7 @@ class Generator(nn.Module):
         return self.fade_in(alpha, final_upscaled, final_out)
 
 class Critic(nn.Module):
-    def __init__(self, in_channels, img_channels=3):
+    def __init__(self, in_channels, img_channels=config.CHANNELS_IMG):
         super().__init__()
         self.prog_blocks, self.rgb_layers = nn.ModuleList([]), nn.ModuleList([])
         self.leaky = nn.LeakyReLU(0.2)
@@ -259,3 +261,4 @@ class Critic(nn.Module):
 
 
 #         print(f"Success at img_size: {img_size}")
+
