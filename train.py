@@ -110,8 +110,8 @@ def train_fn(
     
 
 def main():
-    gen = Generator(z_dim=config.Z_DIM, in_channels=config.IN_CHANNELS, img_channels=3).to(config.DEVICE)
-    critic = Critic(in_channels=config.IN_CHANNELS, img_channels=3).to(config.DEVICE)
+    gen = Generator(z_dim=config.Z_DIM, in_channels=config.IN_CHANNELS, img_channels=config.CHANNELS_IMG).to(config.DEVICE)
+    critic = Critic(in_channels=config.IN_CHANNELS, img_channels=config.CHANNELS_IMG).to(config.DEVICE)
 
     opt_gen = optim.Adam(gen.parameters(), lr=config.LR, betas=(0.0, 0.99), eps=1e-8)
     opt_critic = optim.Adam(critic.parameters(), lr=config.LR, betas=(0.0, 0.99), eps=1e-8)
@@ -153,4 +153,5 @@ def main():
         step += 1
 
 if __name__ == "__main__":
+
     main()
